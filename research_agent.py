@@ -21,13 +21,16 @@ def init_stream_lit():
         simple_chat_tab, historical_tab = st.tabs(["Chat", "Session History"])
         with simple_chat_tab:
             user_question = st.text_input("- - -")
-            with st.spinner('Please wait ...'):
-                try:
-                    response = agent_executor.run(user_question, callbacks=[callbacks.StreamlitCallbackHandler(st)])
-                    st.write(f"{response}")
-                    st.session_state[QUESTION_HISTORY].append((user_question, response))
-                except Exception as e:
-                    st.error(f"Error occurred: {e}")
+            send_button = st.button('Send')  # 'Send' button
+
+            if send_button:  # Only run this block if the 'Send' button is clicked
+                with st.spinner('Please wait ...'):
+                    try:
+                        response = agent_executor.run(user_question, callbacks=[callbacks.StreamlitCallbackHandler(st)])
+                        st.write(f"{response}")
+                        st.session_state[QUESTION_HISTORY].append((user_question, response))
+                    except Exception as e:
+                        st.error(f"Error occurred: {e}")
         with historical_tab:
             for q in st.session_state[QUESTION_HISTORY]:
                 question = q[0]
