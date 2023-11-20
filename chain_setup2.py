@@ -15,7 +15,6 @@ from typing import Tuple, Dict  # Import Tuple and Dict from typing module
 
 
 from langchain.prompts.chat import MessagesPlaceholder
-import tools_wrappers
 
 class Config():
     def __init__(self, openai_api_key):
