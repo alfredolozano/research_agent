@@ -1,11 +1,8 @@
 # main_streamlit_app.py
 
 import streamlit as st
-from dotenv import load_dotenv
 import callbacks
 import chain_setup2  # Import the modified chain_setup module
-
-load_dotenv()
 
 QUESTION_HISTORY: str = 'question_history'
 
