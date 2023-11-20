@@ -34,8 +34,6 @@ def setup_agent(openai_api_key) -> AgentExecutor:
     duckduck_search = DuckDuckGoSearchAPIWrapper()
     wikipedia = WikipediaAPIWrapper()
     pubmed = PubMedAPIWrapper()
-    events = tools_wrappers.EventsAPIWrapper()
-    events.doc_content_chars_max = 5000
     llm_math_chain = LLMMathChain.from_llm(llm=cfg.llm, verbose=False)
     arxiv = ArxivAPIWrapper()
     
@@ -59,11 +57,6 @@ def setup_agent(openai_api_key) -> AgentExecutor:
             name="Arxiv",
             func=arxiv.run,
             description="useful when you need an answer about encyclopedic general knowledge"
-        ),
-        StructuredTool.from_function(
-            func=events.run,
-            name="Events",
-            description="useful when you need an answer about meditation related events in the united kingdom"
         ),
         StructuredTool.from_function(
             func=pubmed.run, 
